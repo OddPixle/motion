@@ -3,6 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EditorController;
+use App\Http\Controllers\FolderController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\DashboardController;
+
 
 
 Route::get('/', function () {
@@ -23,5 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::resource('folders', FolderController::class);
+    Route::resource('folders.notes', NoteController::class);
+});
 require __DIR__.'/auth.php';

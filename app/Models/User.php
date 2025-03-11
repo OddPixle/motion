@@ -22,6 +22,10 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
