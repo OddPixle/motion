@@ -32,15 +32,14 @@ class NoteController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required'
         ]);
-
-        $folder->notes()->create([
+    
+        $note = $folder->notes()->create([
             'title' => $request->title,
-            'content' => $request->content
+            'content' => json_encode(['blocks' => []]) // Empty content for Editor.js
         ]);
-
-        return redirect()->route('folders.notes.index', $folder)->with('success', 'Note added!');
+    
+        return redirect()->route('folders.notes.edit', [$folder, $note]);
     }
 
     /**
@@ -54,18 +53,26 @@ class NoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Folder $folder, Note $note)
     {
-        //
+        return view('notes.edit', compact('folder', 'note'));
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Folder $folder, Note $note)
     {
-        //
+        $request->validate([
+            'content' => 'required' // Ensure content is provided
+        ]);
+    
+        $note->update(['content' => $request->content]);
+    
+        return response()->json(['success' => true, 'message' => 'Note updated successfully']);
     }
+    
 
     /**
      * Remove the specified resource from storage.

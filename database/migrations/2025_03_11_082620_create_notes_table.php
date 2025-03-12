@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content');
+            $table->json('content')->nullable(); // Store Editor.js JSON data
             $table->foreignId('folder_id')->constrained()->onDelete('cascade'); // Links to folders
             $table->timestamps();
         });
