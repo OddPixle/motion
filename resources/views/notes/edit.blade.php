@@ -14,12 +14,11 @@
     </button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@header"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@list"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@code"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@checklist"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@quote"></script>
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@embed"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
 
 
 
@@ -29,8 +28,6 @@
     const noteId = {{ $note->id }};
     const folderId = {{ $folder->id }};
     let noteContent = @json($note->content); 
-
-    console.log(noteContent);
 
     if (noteContent == null || noteContent == '') {
         noteContent = { "blocks": [] }; // Default Empty Content
@@ -43,14 +40,21 @@
         holder: 'editorjs',
         placeholder: "Start writing...",
         data: noteContent,
-        /*tools: {
-            header: { class: window.Header, inlineToolbar: true },
-            list: { class: window.List, inlineToolbar: true },
-            code: { class: window.CodeTool },
-            checklist: { class: window.Checklist },
-            quote: { class: window.Quote, inlineToolbar: true },
-            embed: { class: window.Embed }
-        }*/
+        tools: {
+            header: Header, 
+            list: {class: EditorjsList, inlineToolbar: true, config: { defaultStyle: 'unordered' },},
+            code: CodeTool,
+            image: {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+                        byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                    }
+                }
+             },
+             table: Table,
+        }
     });
 
     // Save Note Content

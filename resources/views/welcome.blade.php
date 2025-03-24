@@ -69,7 +69,7 @@
                     </p>
 
                     <!-- Call-to-Action (CTA) -->
-                    <a href="{{ route('editor') }}" class="mt-6 px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition">
+                    <a href="{{ route('dashboard') }}" class="mt-6 px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition">
                         Start Writing Now
                     </a>
 

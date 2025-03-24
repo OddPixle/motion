@@ -16,7 +16,7 @@
                     <button onclick="openRenameModal('{{ $folder->id }}', '{{ $folder->name }}')" class="text-yellow-500">✏️</button>
                     <a href="{{ route('folders.notes.edit', [$folder, $note]) }}" class="text-lg font-semibold text-blue-600 hover:underline">
                         ✍️ Edit {{ $note->title }}
-                    </a>
+                    </a>    
                     <!-- Delete Button -->
                     <form action="{{ route('folders.destroy', $folder) }}" method="POST">
                         @csrf @method('DELETE')
