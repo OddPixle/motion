@@ -11,18 +11,20 @@
                 <div>
                     <a href="{{ route('folders.notes.index', $folder) }}" class="text-lg font-semibold">{{ $folder->name }}</a>
                 </div>
+                @foreach ($folder->notes as $note)
                 <div class="flex gap-2">
                     <!-- Rename Button (Opens Modal) -->
                     <button onclick="openRenameModal('{{ $folder->id }}', '{{ $folder->name }}')" class="text-yellow-500">✏️</button>
-                    <a href="{{ route('folders.notes.edit', [$folder, $note]) }}" class="text-lg font-semibold text-blue-600 hover:underline">
+                    <a href="{{ route('folders.notes.edit', [$folder, $note]) }}">
                         ✍️ Edit {{ $note->title }}
-                    </a>    
+                    </a>
                     <!-- Delete Button -->
                     <form action="{{ route('folders.destroy', $folder) }}" method="POST">
                         @csrf @method('DELETE')
                         <button class="text-red-500">🗑️</button>
                     </form>
                 </div>
+                @endforeach
             </li>
         @endforeach
     </ul>
