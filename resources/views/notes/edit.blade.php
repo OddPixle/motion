@@ -49,10 +49,10 @@
                 config: {
                     endpoints: {
                         byFile: "{{ url('/upload-image') }}", // Your backend file uploader endpoint
-                    }
+                    },
                     additionalRequestHeaders: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    }
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    },
                 }
              },
              table: Table,
