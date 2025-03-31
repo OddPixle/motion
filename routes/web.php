@@ -7,6 +7,7 @@ use App\Http\Controllers\FolderController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 
@@ -35,5 +36,11 @@ Route::middleware('auth')->group(function () {
 
 });
 Route::post('/upload-image', [ImageUploadController::class, 'upload']);
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/notes', [AdminController::class, 'notes'])->name('notes');
+    Route::delete('/notes/{note}', [AdminController::class, 'destroyNote'])->name('notes.destroy');
+});
 
 require __DIR__.'/auth.php';
