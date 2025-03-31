@@ -50,9 +50,9 @@
                     endpoints: {
                         byFile: 'https://motion.theban.eu/api/upload-image', // Your backend file uploader endpoint
                     }
-                    additionalRequestHeaders: {
+                    /*additionalRequestHeaders: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    }
+                    }*/
                 }
              },
              table: Table,
