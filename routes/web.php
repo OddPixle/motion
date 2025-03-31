@@ -6,6 +6,7 @@ use App\Http\Controllers\EditorController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImageUploadController;
 
 
 
@@ -33,4 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/folders/{folder}/notes/{note}', [NoteController::class, 'update'])->name('folders.notes.update');
 
 });
+Route::post('/upload-image', [ImageUploadController::class, 'upload']);
+
 require __DIR__.'/auth.php';
