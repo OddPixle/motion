@@ -48,8 +48,10 @@
                 class: ImageTool,
                 config: {
                     endpoints: {
-                        byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                        byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                        byFile: 'https://motion.theban.eu/api/upload-image', // Your backend file uploader endpoint
+                    }
+                    additionalRequestHeaders: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
                     }
                 }
              },
@@ -59,22 +61,23 @@
 
     // Save Note Content
     document.getElementById("saveButton").addEventListener("click", async () => {
-        const outputData = await editor.save();
+    const outputData = await editor.save();
 
-        fetch(`/folders/${folderId}/notes/${noteId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({ content: JSON.stringify(outputData) })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert("Note saved successfully!");
-            window.location.href = `/folders/${folderId}/notes`;
-        })
-        .catch(error => console.error("Error saving note:", error));
-    });
+    fetch(`/folders/${folderId}/notes/${noteId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({ content: JSON.stringify(outputData) })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Note saved successfully!");
+        // Redirect to the dashboard with folder param
+        window.location.href = "{{ route('dashboard', ['folder' => $folder->id]) }}";
+    })
+    .catch(error => console.error("Error saving note:", error));
+});
 </script>
 @endsection
