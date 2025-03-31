@@ -1,5 +1,6 @@
 <?PHP 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,7 +21,7 @@ class ImageUploadController extends Controller
 
         return response()->json([
             'success' => 0,
-            'error' => ['message' => 'Image upload failed.']
+            'message' => 'No image uploaded',
         ]);
     }
 }
