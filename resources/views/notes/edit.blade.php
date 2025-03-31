@@ -48,7 +48,7 @@
                 class: ImageTool,
                 config: {
                     endpoints: {
-                        byFile: "{{ url('/api/upload-image') }}", // Your backend file uploader endpoint
+                        byFile: "{{ url('/upload-image') }}", // Your backend file uploader endpoint
                     }
                     /*additionalRequestHeaders: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}"
