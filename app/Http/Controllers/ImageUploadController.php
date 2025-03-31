@@ -8,9 +8,11 @@ class ImageUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('uploads', 'public');
-
+        $file = $request->file('image') ?? $request->file('file');
+    
+        if ($file) {
+            $path = $file->store('uploads', 'public');
+    
             return response()->json([
                 'success' => 1,
                 'file' => [
@@ -18,10 +20,11 @@ class ImageUploadController extends Controller
                 ]
             ]);
         }
-
+    
         return response()->json([
             'success' => 0,
             'message' => 'No image uploaded',
         ]);
     }
+    
 }
