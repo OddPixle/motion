@@ -17,9 +17,8 @@
                     </x-nav-link>
                     @auth
                     @if(auth()->user()->is_admin)
-                        <a href="{{ route('admin.dashboard') }}" class="ml-4 text-blue-500 hover:underline">Admin</a>
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                        {{ __('Admin dashboard') }}
+                        {{ __('admin.dashboard') }}
                     </x-nav-link>
                     @endif
                     @endauth
