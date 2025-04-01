@@ -17,9 +17,12 @@
                     </x-nav-link>
                     @auth
                     @if(auth()->user()->is_admin)
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                        {{ __('admin.dashboard') }}
+                    <x-nav-link 
+                        :href="route('admin.dashboard')" 
+                        :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Admin Dashboard') }}
                     </x-nav-link>
+
                     @endif
                     @endauth
                 </div>
